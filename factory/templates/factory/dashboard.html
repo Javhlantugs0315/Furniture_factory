@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Мебельная фабрика — Панель управления</title>
+    <link rel="stylesheet" href="{% static 'factory/style.css' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+        hr {
+            margin: 20px 0;
+            border: 1px solid #ccc;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            padding: 6px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        table, th, td {
+            border: 1px solid #aaa;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #555;
+            color: white;
+        }
+        /* Workflow colors */
+        .status-ожидает {
+            background-color: #f8d7da; /* light red */
+            color: #721c24;
+            font-weight: bold;
+        }
+        .status-в_работе {
+            background-color: #fff3cd; /* light yellow */
+            color: #856404;
+            font-weight: bold;
+        }
+        .status-выполнено {
+            background-color: #d4edda; /* light green */
+            color: #155724;
+            font-weight: bold;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            width: 95%;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+<h1>Панель управления мебельной фабрики</h1>
+
+<hr>
+
+<h2>Цеха</h2>
+<ul>
+{% for w in workshops %}
+    <li>{{ w.name }} — начальник: {{ w.manager }}</li>
+{% empty %}
+    <li>Цеха не добавлены</li>
+{% endfor %}
+</ul>
+
+<hr>
+
+<h2>Заказы</h2>
+<ul>
+{% for o in orders %}
+    <li>
+        Заказ №{{ o.id }} — {{ o.customer }} —
+        {{ o.get_furniture_type_display }} —
+        <strong>Дата создания:</strong> {{ o.created_at|date:"d.m.Y" }}
+    </li>
+{% empty %}
+    <li>Заказы отсутствуют</li>
+{% endfor %}
+</ul>
+
+<hr>
+
+<h2>Ход выполнения заказов</h2>
+<table>
+<tr>
+    <th>Заказ</th>
+    <th>Цех</th>
+    <th>Статус</th>
+</tr>
+
+{% for s in stages %}
+<tr class="status-{{ s.status }}">
+    <td>{{ s.order }}</td>
+    <td>{{ s.workshop.name }}</td>
+    <td>{{ s.get_status_display }}</td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="3">Нет данных</td>
+</tr>
+{% endfor %}
+</table>
+
+<hr>
+
+<h2>Навигация</h2>
+<ul>
+    <li><a href="/admin/">Администрирование</a></li>
+</ul>
+
+</div>
+</body>
+</html>
