@@ -32,6 +32,7 @@ python manage.py migrate
 python manage.py createsuperuser
 
 Для демонстрации работы системы можно использовать тестовую учетную запись администратора:
+
 Логин: admin
 Пароль: admin12345
 
