@@ -14,7 +14,7 @@
 
 1. Клонировать репозиторий:
 
-git clone <ваш GitHub репозиторий>
+git clone <https://github.com/Javhlantugs0315/Furniture_factory.git>
 cd furniture_factory
 
 2. Установить зависимости (рекомендуется виртуальное окружение):
@@ -30,6 +30,10 @@ python manage.py migrate
 4. Создать суперпользователя для доступа в админку:
 
 python manage.py createsuperuser
+
+Для демонстрации работы системы можно использовать тестовую учетную запись администратора:
+Логин: admin
+Пароль: admin12345
 
 5. Запустить сервер разработки:
 
